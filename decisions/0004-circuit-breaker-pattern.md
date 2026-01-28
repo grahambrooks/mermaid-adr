@@ -22,23 +22,23 @@ We will implement the Circuit Breaker pattern for all inter-service and external
 
 ```mermaid
 flowchart TD
-    Start([Request Initiated]) --> CheckState{Circuit<br/>State?}
+    Start([Request Initiated]) --> CheckState{Circuit State?}
     
     CheckState -->|Closed| MakeCall[Make Service Call]
-    CheckState -->|Open| CheckTimeout{Timeout<br/>Expired?}
+    CheckState -->|Open| CheckTimeout{Timeout Expired?}
     CheckState -->|Half-Open| MakeTrial[Make Trial Call]
     
-    MakeCall --> Success{Call<br/>Successful?}
+    MakeCall --> Success{Call Successful?}
     
     Success -->|Yes| ResetCount[Reset Failure Count]
     ResetCount --> ReturnSuccess([Return Success])
     
     Success -->|No| IncrementCount[Increment Failure Count]
-    IncrementCount --> CheckThreshold{Failure Count ><br/>Threshold?}
+    IncrementCount --> CheckThreshold{Failure Count > Threshold?}
     
     CheckThreshold -->|Yes| OpenCircuit[Open Circuit]
     OpenCircuit --> StartTimer[Start Timeout Timer]
-    StartTimer --> ReturnError([Return Error/<br/>Fallback Response])
+    StartTimer --> ReturnError([Return Error or Fallback Response])
     
     CheckThreshold -->|No| ReturnError
     
@@ -46,7 +46,7 @@ flowchart TD
     CheckTimeout -->|Yes| HalfOpen[Move to Half-Open State]
     HalfOpen --> MakeTrial
     
-    MakeTrial --> TrialSuccess{Trial Call<br/>Successful?}
+    MakeTrial --> TrialSuccess{Trial Call Successful?}
     
     TrialSuccess -->|Yes| CloseCircuit[Close Circuit]
     CloseCircuit --> ReturnSuccess

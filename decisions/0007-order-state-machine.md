@@ -35,23 +35,23 @@ stateDiagram-v2
     PaymentFailed --> Cancelled: Abandons Order
     
     Paid --> Processing: Start Fulfillment
-    Paid --> Cancelled: Customer Cancels<br/>(Refund Required)
+    Paid --> Cancelled: Customer Cancels (Refund Required)
     
     Processing --> ReadyToShip: Items Picked & Packed
-    Processing --> Cancelled: Customer Cancels<br/>(Refund Required)
+    Processing --> Cancelled: Customer Cancels (Refund Required)
     Processing --> Failed: Fulfillment Error
     
     Failed --> Processing: Retry Fulfillment
-    Failed --> Cancelled: Cannot Fulfill<br/>(Refund Required)
+    Failed --> Cancelled: Cannot Fulfill (Refund Required)
     
     ReadyToShip --> Shipped: Handed to Carrier
-    ReadyToShip --> Cancelled: Customer Cancels<br/>(Refund Required)
+    ReadyToShip --> Cancelled: Customer Cancels (Refund Required)
     
     Shipped --> InTransit: Tracking Active
-    Shipped --> Returned: Customer Returns<br/>(Before Delivery)
+    Shipped --> Returned: Customer Returns (Before Delivery)
     
     InTransit --> OutForDelivery: Out for Delivery
-    InTransit --> Returned: Delivery Failed<br/>(Return to Sender)
+    InTransit --> Returned: Delivery Failed (Return to Sender)
     InTransit --> Delivered: Successfully Delivered
     
     OutForDelivery --> Delivered: Successfully Delivered
